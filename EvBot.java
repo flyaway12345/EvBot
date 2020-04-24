@@ -35,7 +35,7 @@ public class EvBot extends AdvancedRobot {
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-		fire(25);
+		fire(15);
 	}
 
 
