@@ -3,37 +3,34 @@ import robocode.*;
 
 
 public class EvBot extends AdvancedRobot {
-	boolean movingForward;
+	boolean forwardCheck;
 
-	/**
-	 * run: Crazy's main run function
-	 */
 	public void run() {
 		
 		while (true) {
 			setAhead(40000);
-			movingForward = true;
+			forwardCheck = true;
 			setTurnRight(90);
-			waitFor(new TurnCompleteCondition(this));
+				waitFor(new TurnCompleteCondition(this));
 			setTurnLeft(180);
-			waitFor(new TurnCompleteCondition(this));
+				waitFor(new TurnCompleteCondition(this));
 			setTurnRight(180);
-			waitFor(new TurnCompleteCondition(this));
+				waitFor(new TurnCompleteCondition(this));
 		}
 	}
 
 	public void onHitWall(HitWallEvent e) {
-
 		reverseDirection();
 	}
 
 	public void reverseDirection() {
-		if (movingForward) {
+		if (forwardCheck) {
 			setBack(40000);
-			movingForward = false;
-		} else {
+			forwardCheck = false;
+		} 
+		else{
 			setAhead(40000);
-			movingForward = true;
+			forwardCheck = true;
 		}
 	}
 
