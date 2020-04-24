@@ -2,29 +2,49 @@ package myBots;
 import robocode.*;
 
 
-public class EvBot extends Robot {
+public class EvBot extends AdvancedRobot {
+	boolean movingForward;
 
-    public void run() {
+	/**
+	 * run: Crazy's main run function
+	 */
+	public void run() {
+		
+		while (true) {
+			setAhead(40000);
+			movingForward = true;
+			setTurnRight(90);
+			waitFor(new TurnCompleteCondition(this));
+			setTurnLeft(180);
+			waitFor(new TurnCompleteCondition(this));
+			setTurnRight(180);
+			waitFor(new TurnCompleteCondition(this));
+		}
+	}
 
-        while (true) {
+	public void onHitWall(HitWallEvent e) {
 
-            ahead(100);
+		reverseDirection();
+	}
 
-            turnGunRight(360);
+	public void reverseDirection() {
+		if (movingForward) {
+			setBack(40000);
+			movingForward = false;
+		} else {
+			setAhead(40000);
+			movingForward = true;
+		}
+	}
 
-            back(150); 
-
-            turnGunRight(360);
-
-        }
-
-    }
+	public void onScannedRobot(ScannedRobotEvent e) {
+		fire(1);
+	}
 
 
-    public void onScannedRobot(ScannedRobotEvent e) {
-
-        fire(1);
-
-    }
-
+	public void onHitRobot(HitRobotEvent e) {
+		if (e.isMyFault()) {
+			reverseDirection();
+		}
+	}
 }
