@@ -6,21 +6,24 @@ public class EvBot extends AdvancedRobot {
 	boolean forwardCheck;
 
 	public void run() {
-		
+		setAhead(40000);
 		while (true) {
 			setAhead(40000);
+			
 			forwardCheck = true;
 			setTurnRight(90);
 				waitFor(new TurnCompleteCondition(this));
-			setTurnLeft(180);
+			setTurnLeft(90);
 				waitFor(new TurnCompleteCondition(this));
-			setTurnRight(180);
+			setTurnRight(90);
 				waitFor(new TurnCompleteCondition(this));
 		}
 	}
 
 	public void onHitWall(HitWallEvent e) {
+		setTurnGunRight(360);
 		reverseDirection();
+		setTurnGunRight(360);
 	}
 
 	public void reverseDirection() {
@@ -43,5 +46,6 @@ public class EvBot extends AdvancedRobot {
 		if (e.isMyFault()) {
 			reverseDirection();
 		}
+		setTurnGunRight(360);
 	}
 }
